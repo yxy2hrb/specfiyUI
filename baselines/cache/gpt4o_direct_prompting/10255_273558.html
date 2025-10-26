@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webpage Reproduction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+        }
+        .chart-container {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .chart-container h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .chart-container svg {
+            width: 100%;
+            height: 300px;
+        }
+        .dropdown {
+            margin-bottom: 10px;
+        }
+        .dropdown select {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .buttons {
+            text-align: right;
+            margin-top: 10px;
+        }
+        .buttons button {
+            padding: 5px 10px;
+            margin-left: 5px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .buttons button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="dropdown">
+            <label for="port">港口:</label>
+            <select id="port">
+                <option value="A01">A01</option>
+                <!-- Add more options as needed -->
+            </select>
+        </div>
+        <div class="dropdown">
+            <label for="voyage">航次:</label>
+            <select id="voyage">
+                <option value="K1234567">K1234567</option>
+                <!-- Add more options as needed -->
+            </select>
+        </div>
+        <div class="dropdown">
+            <label for="date">年月日:</label>
+            <input type="text" id="date" placeholder="年月日">
+        </div>
+        <button class="buttons">对比分析</button>
+    </div>
+
+    <div class="container">
+        <div class="chart-container">
+            <h3>等待时长</h3>
+            <svg></svg>
+        </div>
+        <div class="chart-container">
+            <h3>拥堵</h3>
+            <svg></svg>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="chart-container">
+            <h3>装到时长 (平均单次)</h3>
+            <svg></svg>
+        </div>
+        <div class="chart-container">
+            <h3>装卸时长 (平均单次)</h3>
+            <svg></svg>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="chart-container">
+            <h3>装卸时长 (平均单次)</h3>
+            <svg></svg>
+        </div>
+        <div class="chart-container">
+            <h3>装卸时长 (平均单次)</h3>
+            <svg></svg>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="chart-container">
+            <h3>装卸时长 (平均单次)</h3>
+            <svg></svg>
+        </div>
+        <div class="chart-container">
+            <h3>装卸时长 (平均单次)</h3>
+            <svg></svg>
+        </div>
+    </div>
+
+    <script>
+        // Recharts imports
+        import * as React from 'react';
+        import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+
+        const data = [
+            { name: '等待时长', value: [5, 4, 6, 5, 4, 5, 6, 5, 4, 5, 6, 5] },
+            { name: '拥堵', value: [3, 5, 7, 5, 3, 7, 5, 3, 5, 7, 5, 3] },
+            { name: '装到时长 (平均单次)', value: [4, 5, 6, 5, 4, 5, 6, 5, 4, 5, 6, 5] },
+            { name: '装卸时长 (平均单次)', value: [3, 5, 6, 5, 3, 6, 5, 3, 5, 6, 5, 3] },
+            { name: '装卸时长 (平均单次)', value: [4, 5, 6, 5, 4, 5, 6, 5, 4, 5, 6, 5] },
+            { name: '装卸时长 (平均单次)', value: [3, 5, 6, 5, 3, 6, 5, 3, 5, 6, 5, 3] }
+        ];
+
+        const ChartComponent = () => {
+            return (
+                <LineChart width={500} height={300} data={data}>
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <Tooltip />
+                    <Legend />
+                    <Line type="monotone" dataKey="value" stroke="#8884d8" activeDot={{ r: 8 }} />
+                </LineChart>
+            );
+        };
+
+        ReactDOM.render(<ChartComponent />, document.querySelector('.chart-container svg'));
+    </script>
+</body>
+</html>

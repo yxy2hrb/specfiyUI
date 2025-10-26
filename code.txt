@@ -1,0 +1,393 @@
+import React from "react";
+import {
+  Layout,
+  Menu,
+  Input,
+  Typography,
+  Row,
+  Col,
+  Space,
+} from "antd";
+import {
+  DashboardOutlined,
+  FileTextOutlined,
+  RocketOutlined,
+  AppstoreOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
+
+// SVG Logo: Abstract bird with purple and orange
+const BirdLogo = () => (
+  <svg
+    width="48"
+    height="48"
+    viewBox="0 0 48 48"
+    style={{ display: "block" }}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      <linearGradient id="bird-gradient-purple" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stopColor="#8a60ff" />
+        <stop offset="100%" stopColor="#c793ff" />
+      </linearGradient>
+      <linearGradient id="bird-gradient-orange" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0%" stopColor="#ff920e" />
+        <stop offset="100%" stopColor="#ffc074" />
+      </linearGradient>
+    </defs>
+    <ellipse
+      cx="22"
+      cy="28"
+      rx="13"
+      ry="12"
+      fill="url(#bird-gradient-purple)"
+      transform="rotate(-12 24 24)"
+    />
+    <path
+      d="M35 17 Q40 16 41 22 Q35 22 35 17 Z"
+      fill="url(#bird-gradient-orange)"
+      opacity="0.85"
+    />
+    <path
+      d="M12 23 Q8 15 17 14 Q13 19 15 22 Z"
+      fill="#ffc074"
+      opacity="0.7"
+    />
+    <ellipse
+      cx="29"
+      cy="24"
+      rx="2"
+      ry="1"
+      fill="#fff"
+      opacity="0.6"
+    />
+    <circle cx="33" cy="22" r="1.2" fill="#6d4de0" />
+  </svg>
+);
+
+const { Header, Content } = Layout;
+const { Title, Text } = Typography;
+
+const MENU_ITEMS = [
+  {
+    key: "dashboard",
+    icon: <DashboardOutlined />,
+    label: "Dashboard",
+    status: "active",
+  },
+  {
+    key: "report",
+    icon: <FileTextOutlined />,
+    label: "Report",
+    status: "inactive",
+  },
+  {
+    key: "campaign",
+    icon: <RocketOutlined />,
+    label: "Campaign",
+    status: "inactive",
+  },
+  {
+    key: "products",
+    icon: <AppstoreOutlined />,
+    label: "Products",
+    status: "inactive",
+  },
+];
+
+const MENU_ACTIVE_BG = "#f5f6fa";
+const MENU_ACTIVE_COLOR = "#262626"; // 深灰
+const MENU_INACTIVE_COLOR = "#bfbfbf"; // 浅灰
+
+const App = () => {
+  // Layout: Whole page, header with three sections: Logo, Menu, Search
+  return (
+    <Layout
+      style={{
+        minHeight: "100vh",
+        width: "100vw",
+        background: "#fff",
+        overflow: "hidden",
+        minWidth: 1920,
+        minHeight: 1080,
+      }}
+    >
+      <Header
+        style={{
+          padding: 0,
+          background: "#fff",
+          height: 104,
+          borderBottom: "1px solid #f0f0f0",
+          boxShadow: "0 2px 14px -8px #d6dbe6",
+          zIndex: 10,
+          width: "100%",
+        }}
+      >
+        <Row
+          align="middle"
+          justify="start"
+          style={{
+            height: "100%",
+            width: "100%",
+            margin: 0,
+            padding: "0 48px",
+          }}
+        >
+          {/* Left: Logo */}
+          <Col flex="none">
+            <Space align="center" size={20}>
+              <BirdLogo />
+              <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                <Title
+                  level={4}
+                  style={{
+                    color: "#262626",
+                    marginBottom: 4,
+                    fontWeight: 600,
+                    fontSize: 22,
+                    letterSpacing: 0.2,
+                    lineHeight: "28px",
+                  }}
+                >
+                  Bresendy Agency
+                </Title>
+                <Text style={{ color: "#bfbfbf", fontSize: 15, letterSpacing: 0.3 }}>
+                  Marketing team
+                </Text>
+              </div>
+            </Space>
+          </Col>
+
+          {/* Middle: Navigation Menu */}
+          <Col
+            flex="none"
+            style={{
+              marginLeft: 56,
+              marginRight: 48,
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Menu
+              mode="horizontal"
+              selectedKeys={["dashboard"]}
+              style={{
+                borderBottom: "none",
+                background: "transparent",
+                fontSize: 17,
+                fontWeight: 500,
+                height: 64,
+                minWidth: 480,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 20,
+              }}
+              overflowedIndicator={false}
+            >
+              {MENU_ITEMS.map((item) => (
+                <Menu.Item
+                  key={item.key}
+                  style={{
+                    background:
+                      item.status === "active"
+                        ? MENU_ACTIVE_BG
+                        : "transparent",
+                    color:
+                      item.status === "active"
+                        ? MENU_ACTIVE_COLOR
+                        : MENU_INACTIVE_COLOR,
+                    borderRadius: 10,
+                    margin: "0 10px",
+                    minWidth: 120,
+                    height: 44,
+                    display: "flex",
+                    alignItems: "center",
+                    padding: "0 28px",
+                    fontWeight: item.status === "active" ? 600 : 400,
+                    boxShadow:
+                      item.status === "active"
+                        ? "0 2px 6px -4px #e2e5ef"
+                        : "none",
+                    transition: "background 0.3s",
+                  }}
+                  icon={
+                    React.cloneElement(item.icon, {
+                      style: {
+                        fontSize: 22,
+                        color:
+                          item.status === "active"
+                            ? MENU_ACTIVE_COLOR
+                            : MENU_INACTIVE_COLOR,
+                        marginRight: 12,
+                        verticalAlign: "middle",
+                      },
+                    })
+                  }
+                >
+                  {item.label}
+                </Menu.Item>
+              ))}
+            </Menu>
+          </Col>
+
+          {/* Right: Search Input */}
+          <Col flex="auto" style={{ display: "flex", alignItems: "center" }}>
+            <div style={{ flex: 1 }} />
+            <Input
+              allowClear={false}
+              size="large"
+              placeholder="Search information"
+              prefix={
+                <SearchOutlined
+                  style={{
+                    color: "#bfbfbf",
+                    fontSize: 20,
+                    marginRight: 4,
+                  }}
+                />
+              }
+              style={{
+                width: 340,
+                height: 44,
+                background: "rgba(255,255,255,0.82)",
+                border: "none",
+                borderRadius: 12,
+                boxShadow:
+                  "0 2px 8px 0px hsla(210,8%,62%,0.13)",
+                fontSize: 16,
+                color: "#262626",
+                textAlign: "left",
+                paddingLeft: 16,
+                fontWeight: 500,
+              }}
+              inputMode="search"
+            />
+          </Col>
+        </Row>
+      </Header>
+      <Content
+        style={{
+          background: "#fff",
+          width: "100%",
+          minHeight: "calc(100vh - 104px)",
+        }}
+      >
+        {/* Filler free space (can use a big background or illustration to fill) */}
+        <Row
+          align="middle"
+          justify="center"
+          style={{
+            width: "100%",
+            height: "100%",
+            minHeight: 976,
+            background: "linear-gradient(135deg, #f8f9fb 44%, #fff 100%)",
+          }}
+        >
+          <Col>
+            {/* Engagement Illustration as SVG */}
+            <svg
+              width="420"
+              height="340"
+              viewBox="0 0 420 340"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ opacity: 0.32, marginBottom: 16 }}
+            >
+              <ellipse
+                cx="210"
+                cy="310"
+                rx="160"
+                ry="20"
+                fill="#eaeefa"
+              />
+              <path
+                d="M130 70c44-50 140-59 200 8s29 194-41 210S52 247 38 178s48-111 92-108z"
+                fill="#9e84ff"
+                opacity="0.12"
+              />
+              <circle cx="98" cy="176" r="38" fill="#f7931e" opacity="0.14" />
+              <circle cx="305" cy="108" r="42" fill="#f5f6fa" opacity="0.15" />
+              <rect
+                x="120"
+                y="110"
+                width="180"
+                height="110"
+                rx="30"
+                fill="#fff"
+                stroke="#eaeefa"
+                strokeWidth={2}
+                opacity="0.56"
+              />
+              <rect
+                x="148"
+                y="132"
+                width="54"
+                height="12"
+                rx="4"
+                fill="#9e84ff"
+                opacity="0.42"
+              />
+              <rect
+                x="148"
+                y="156"
+                width="124"
+                height="10"
+                rx="4"
+                fill="#bfe2ff"
+                opacity="0.23"
+              />
+              <rect
+                x="148"
+                y="172"
+                width="92"
+                height="8"
+                rx="4"
+                fill="#f7931e"
+                opacity="0.17"
+              />
+              <rect
+                x="148"
+                y="188"
+                width="80"
+                height="8"
+                rx="4"
+                fill="#ccc"
+                opacity="0.08"
+              />
+            </svg>
+            <Title
+              level={2}
+              style={{
+                color: "#22232c",
+                fontWeight: 700,
+                letterSpacing: 0.2,
+                textAlign: "center",
+                fontSize: 28,
+                marginBottom: 12,
+              }}
+            >
+              Welcome to Bresendy Agency Dashboard
+            </Title>
+            <Text
+              style={{
+                color: "#bfbfbf",
+                lineHeight: "28px",
+                fontSize: 18,
+                textAlign: "center",
+                display: "block",
+                maxWidth: 420,
+                margin: "0 auto",
+              }}
+            >
+              All-in-one workspace to supercharge your marketing team. Use the sidebar and search to get started!
+            </Text>
+          </Col>
+        </Row>
+      </Content>
+    </Layout>
+  );
+};
+
+export default App;

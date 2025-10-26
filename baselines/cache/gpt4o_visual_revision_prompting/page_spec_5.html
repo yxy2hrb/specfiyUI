@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>对账管理</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Microsoft YaHei", sans-serif;
+    }
+
+    body {
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    /* Top Navigation Bar */
+    .top-nav {
+      display: flex;
+      background-color: #1890ff;
+      padding: 0 20px;
+      height: 50px;
+      align-items: center;
+    }
+
+    .top-nav a {
+      color: white;
+      text-decoration: none;
+      margin-right: 30px;
+      font-size: 16px;
+    }
+
+    .top-nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* Main Content */
+    .main-container {
+      display: flex;
+      padding: 20px;
+    }
+
+    /* Left Sidebar */
+    .sidebar {
+      width: 200px;
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 5px;
+      margin-right: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .sidebar .card {
+      margin-bottom: 15px;
+    }
+
+    .sidebar .card-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    /* Right Content Area */
+    .content-area {
+      flex: 1;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 20px;
+    }
+
+    .tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .tab.active {
+      border-bottom: 2px solid #1890ff;
+      color: #1890ff;
+      font-weight: bold;
+    }
+
+    /* Search Bar */
+    .search-bar {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    .search-bar .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .form-group label {
+      font-size: 14px;
+      margin-bottom: 5px;
+      color: #555;
+    }
+
+    .form-group input {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .search-bar .buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .search-bar button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .search-bar .btn-query {
+      background-color: #1890ff;
+      color: white;
+    }
+
+    .search-bar .btn-reset {
+      background-color: #f0f0f0;
+      color: #333;
+    }
+
+    /* Status Bar */
+    .status-bar {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <a href="#">对账管理</a>
+    <a href="#">设置</a>
+    <a href="#">通知</a>
+    <a href="#">用户中心</a>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="card">
+        <div class="card-title">对账计划</div>
+      </div>
+      <div class="card">
+        <div class="card-title">对账单</div>
+      </div>
+      <div class="card">
+        <div class="card-title">已完成</div>
+      </div>
+      <div class="card">
+        <div class="card-title">未完成</div>
+      </div>
+    </aside>
+
+    <!-- Right Content Area -->
+    <div class="content-area">
+      <!-- Tabs -->
+      <div class="tabs">
+        <div class="tab active">待办任务</div>
+        <div class="tab">我的申请</div>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="search-bar">
+        <div class="form-row">
+          <div class="form-group">
+            <label>客户</label>
+            <input type="text">
+          </div>
+          <div class="form-group">
+            <label>签约主体</label>
+            <input type="text">
+          </div>
+          <div class="form-group">
+            <label>区域</label>
+            <input type="text">
+          </div>
+          <div class="form-group">
+            <label>是否超期</label>
+            <input type="text">
+          </div>
+        </div>
+        <div class="buttons">
+          <button class="btn-query">查询</button>
+          <button class="btn-reset">重置</button>
+        </div>
+      </div>
+
+      <!-- Status Bar -->
+      <div class="status-bar">
+        共500条
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

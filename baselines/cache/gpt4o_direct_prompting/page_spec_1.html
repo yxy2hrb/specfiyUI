@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Port Efficiency Analysis System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: top;
+            height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .chart-container {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        .chart-container svg {
+            width: 100%;
+            height: auto;
+        }
+        .info-box {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .info-box p {
+            margin: 0;
+        }
+        .info-box span {
+            font-weight: bold;
+        }
+        .info-box i {
+            margin-right: 5px;
+        }
+        .info-box img {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 装卸时长变化 -->
+        <div class="chart-container">
+            <svg width="600" height="400"></svg>
+        </div>
+        <!-- 装卸效率月按压力分布 -->
+        <div class="chart-container">
+            <svg width="600" height="400"></svg>
+        </div>
+        <!-- 等待时长月度分析 -->
+        <div class="chart-container">
+            <svg width="600" height="400"></svg>
+        </div>
+        <!-- 拥堵情况月度分析 -->
+        <div class="chart-container">
+            <svg width="600" height="400"></svg>
+        </div>
+        <!-- 装卸效率趋势 -->
+        <div class="chart-container">
+            <svg width="600" height="400"></svg>
+        </div>
+        <!-- 装卸时长月度仪表盘 -->
+        <div class="chart-container">
+            <svg width="600" height="400"></svg>
+        </div>
+        <!-- 装卸时长年度热力分布 -->
+        <div class="chart-container">
+            <svg width="600" height="400"></svg>
+        </div>
+        <!-- 平均装卸时长 -->
+        <div class="info-box">
+            <p><i class="fas fa-clock"></i> 平均装卸时长 <span>4.2 分钟</span></p>
+            <p><small>* 最近三个月平均值</small></p>
+        </div>
+        <!-- 平均等待时长 -->
+        <div class="info-box">
+            <p><i class="fas fa-sync-alt"></i> 平均等待时长 <span>2.8 分钟</span></p>
+            <p><small>* 周末及节假日除外</small></p>
+        </div>
+        <!-- 门机箱体次数 -->
+        <div class="info-box">
+            <p><i class="fas fa-exclamation-circle"></i> 门机箱体次数 <span>4.1 次</span></p>
+            <p><small>* 含所有作业类型</small></p>
+        </div>
+    </div>
+
+    <script>
+        // Recharts for charts
+        const chart1 = document.querySelector('svg:nth-child(1)');
+        const chart2 = document.querySelector('svg:nth-child(2)');
+        const chart3 = document.querySelector('svg:nth-child(3)');
+        const chart4 = document.querySelector('svg:nth-child(4)');
+        const chart5 = document.querySelector('svg:nth-child(5)');
+        const chart6 = document.querySelector('svg:nth-child(6)');
+        const chart7 = document.querySelector('svg:nth-child(7)');
+
+        const data1 = [
+            { name: '1月', value: 4 },
+            { name: '2月', value: 3 },
+            { name: '3月', value: 7 },
+            { name: '4月', value: 4 },
+            { name: '5月', value: 3 },
+            { name: '6月', value: 4 },
+            { name: '7月', value: 3 },
+            { name: '8月', value: 7 },
+            { name: '9月', value: 3 },
+            { name: '10月', value: 4 },
+            { name: '11月', value: 6 },
+            { name: '12月', value: 6 }
+        ];
+
+        const data2 = [
+            { name: '1月', value: 2 },
+            { name: '2月', value: 3 },
+            { name: '3月', value: 4 },
+            { name: '4月', value: 3 },
+            { name: '5月', value: 4 },
+            { name: '6月', value: 3 },
+            { name: '7月', value: 4 },
+            { name: '8月', value: 5 },
+            { name: '9月', value: 4 },
+            { name: '10月', value: 3 },
+            { name: '11月', value: 5 },
+            { name: '12月', value: 6 }
+        ];
+
+        const data3 = [
+            { name: '1月', value: 3 },
+            { name: '2月', value: 2 },
+            { name: '3月', value: 4 },
+            { name: '4月', value: 3 },
+            { name: '5月', value: 2 },
+            { name: '6月', value: 4 },
+            { name: '7月', value: 3 },
+            { name: '8月', value: 5 },
+            { name: '9月', value: 4 },
+            { name: '10月', value: 2 },
+            { name: '11月', value: 3 },
+            { name: '12月', value: 4 }
+        ];
+
+        const data4 = [
+            { name: '1月', value: 4 },
+            { name: '2月', value: 3 },
+            { name: '3月', value: 5 },
+            { name: '4月', value: 4 },
+            { name: '5月', value: 3 },
+            { name: '6月', value: 4 },
+            { name: '7月', value: 3 },
+            { name: '8月', value: 5 },
+            { name: '9月', value: 4 },
+            { name: '10月', value: 2 },
+            { name: '11月', value: 3 },
+            { name: '12月', value: 4 }
+        ];
+
+        const data5 = [
+            { name: '1月', value: 4 },
+            { name: '2月', value: 3 },
+            { name: '3月', value: 5 },
+            { name: '4月', value: 4 },
+            { name: '5月', value: 3 },
+            { name: '6月', value: 4 },
+            { name: '7月', value: 3 },
+            { name: '8月', value: 5 },
+            { name: '9月', value: 4 },
+            { name: '10月', value: 2 },
+            { name: '11月', value: 3 },
+            { name: '12月', value: 4 }
+        ];
+
+        const data6 = [
+            { name: '1月', value: 2 },
+            { name: '2月', value: 3 },
+            { name: '3月', value: 4 },
+            { name: '4月', value: 3 },
+            { name: '5月', value: 4 },
+            { name: '6月', value: 3 },
+            { name: '7月', value: 4 },
+            { name: '8月', value: 5 },
+            { name: '9月', value: 4 },
+            { name: '10月', value: 3 },
+            { name: '11月', value: 5 },
+            { name: '12月', value: 6 }
+        ];
+
+        const data7 = [
+            { name: '1月', value: 3 },
+            { name: '2月', value: 2 },
+            { name: '3月', value: 4 },
+            { name: '4月', value: 3 },
+            { name: '5月', value: 2 },
+            { name: '6月', value: 4 },
+            { name: '7月', value: 3 },
+            { name: '8月', value: 5 },
+            { name: '9月', value: 4 },
+            { name: '10月', value: 2 },
+            { name: '11月', value: 3 },
+            { name: '12月', value: 4 }
+        ];
+
+        const data8 = [
+            { label: '1h', value: 4 },
+            { label: '2h', value: 2.5 },
+            { label: '3h', value: 6 },
+            { label: '4h', value: 4 },
+            { label: '5h', value: 4 },
+            { label: '6h', value: 4.5 },
+            { label: '7h', value: 3.5 },
+            { label: '8h', value: 6 },
+            { label: '9h', value: 3.5 },
+            { label: '10h', value: 3 },
+            { label: '11h', value: 5 },
+            { label: '12h', value: 5 }
+        ];
+
+        const lineChart = new Chart(chart1, {
+            type: 'line',
+            data: {
+                labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                datasets: [{
+                    label: '装卸时长',
+                    data: data1.map(item => item.value),
+                    borderColor: '#3cba9f',
+                    fill: true
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            stepSize: 1
+                        }
+                    }]
+                }
+            }
+        });
+
+        const barChart1 = new Chart(chart2, {
+            type: 'bar',
+            data: {
+                labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                datasets: [{
+                    label: '装卸效率月按压力',
+                    data: data2.map(item => item.value),
+                    backgroundColor: ['#ffbb28']
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            stepSize: 1
+                        }
+                    }]
+                }
+            }
+        });
+
+        const radarChart = new Chart(chart3, {
+            type: 'radar',
+            data: {
+                labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                datasets: [{
+                    label: '等待时长',
+                    data: data3.map(item => item.value),
+                    backgroundColor: ['#3cba9f']
+                }, {
+                    label: '装卸时长',
+                    data: data4.map(item => item.value),
+                    backgroundColor: ['#3cba9f']
+                }, {
+                    label: '开吊时长',
+                    data: data5.map(item => item.value),
+                    backgroundColor: ['#3cba9f']
+                }]
+            },
+            options: {
+                responsive: false,
+                title: {
+                    display: true,
+                    text: '等待时长月度分析'
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false
+                },
+                legend: {
+                    position: 'bottom'
+                },
+                maintainAspectRatio: false,
+                elements: {
+                    point: {
+                        radius: 0
+                    }
+                },
+                scales: {
+                    r: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        const barChart2 = new Chart(chart4, {
+            type: 'bar',
+            data: {
+                labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                datasets: [{
+                    label: '拥堵情况月度分析',
+                    data: data6.map(item => item.value),
+                    backgroundColor: ['#00bfff']
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            stepSize: 1
+                        }
+                    }]
+                }
+            }
+        });
+
+        const lineChart2 = new Chart(chart5, {
+            type: 'line',
+            data: {
+                labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                datasets: [{
+                    label: '装卸效率趋势',
+                    data: data7.map(item => item.value),
+                    borderColor: '#3cba9f',
+                    fill: true
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            stepSize: 1
+                        }
+                    }]
+                }
+            }
+        });
+
+        const barChart3 = new Chart(chart6, {
+            type: 'bar',
+            data: {
+                labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                datasets: [{
+                    label: '装卸时长月度仪表盘',
+                    data: data8.map(item => item.value),
+                    backgroundColor: ['#ffbb28']
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            stepSize: 1
+                        }
+                    }]
+                }
+            }
+        });
+
+        const heatMap = new Chart(chart7, {
+            type: 'heatmap',
+            data: {
+                labels: ['1h', '2h', '3h', '4h', '5h', '6h', '7h', '8h', '9h', '10h', '11h', '12h'],
+                datasets: [{
+                    label: '装卸时长年度热力分布',
+                    data: data8.map(item => item.value),
+                    backgroundColor: ['#ffbb28']
+                }]
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            stepSize: 1
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+</body>
+</html>

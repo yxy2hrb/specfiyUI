@@ -1,0 +1,346 @@
+{
+  "uiName": "会议发起界面",
+  "description": "该页面是一个企业级桌面端应用的会议发起界面，帮助用户快速创建视频会议或语音会议，包含全局导航、功能入口和会议发起操作区，界面简洁、专业。",
+  "pageStructure": [
+    {
+      "uiName": "头部",
+      "description": "包含产品名称、用户头像、搜索框和窗口功能按钮，提供全局导航和搜索入口。",
+      "components": {
+        "text": ["CloudLink"],
+        "style": {
+          "backgroundColor": "#F4F2FF",
+          "color": "#222222",
+          "fontWeight": "bold",
+          "display": "flex",
+          "alignItems": "center",
+          "padding": "0 24px",
+          "height": "56px"
+        },
+        "layout": {
+          "position": "top",
+          "width": "100%",
+          "height": "56px",
+          "zIndex": 100
+        },
+        "children": [
+          {
+            "uiName": "产品名称标签",
+            "description": "显示产品名称CloudLink",
+            "components": {
+              "text": ["CloudLink"],
+              "style": {
+                "fontSize": "20px",
+                "fontWeight": "bold",
+                "color": "#222222",
+                "marginRight": "32px"
+              },
+              "layout": {
+                "flex": "none"
+              },
+              "children": []
+            }
+          },
+          {
+            "uiName": "搜索框",
+            "description": "用于全局内容搜索",
+            "components": {
+              "text": [],
+              "style": {
+                "backgroundColor": "#FFFFFF",
+                "borderRadius": "4px",
+                "border": "1px solid #E0E0E0",
+                "height": "32px",
+                "width": "240px",
+                "marginRight": "auto"
+              },
+              "layout": {
+                "flex": "none"
+              },
+              "children": []
+            }
+          },
+          {
+            "uiName": "用户头像",
+            "description": "显示当前用户头像",
+            "components": {
+              "text": [],
+              "style": {
+                "width": "32px",
+                "height": "32px",
+                "borderRadius": "50%",
+                "marginRight": "16px"
+              },
+              "layout": {
+                "flex": "none"
+              },
+              "children": []
+            }
+          },
+          {
+            "uiName": "功能按钮组",
+            "description": "窗口最小化、最大化和关闭按钮",
+            "components": {
+              "text": [],
+              "style": {
+                "display": "flex",
+                "gap": "8px"
+              },
+              "layout": {
+                "flex": "none"
+              },
+              "children": [
+                {
+                  "uiName": "最小化按钮",
+                  "description": "窗口最小化",
+                  "components": {
+                    "text": [],
+                    "style": {
+                      "width": "16px",
+                      "height": "16px",
+                      "backgroundColor": "#E0E0E0",
+                      "borderRadius": "2px"
+                    },
+                    "layout": {},
+                    "children": []
+                  }
+                },
+                {
+                  "uiName": "最大化按钮",
+                  "description": "窗口最大化",
+                  "components": {
+                    "text": [],
+                    "style": {
+                      "width": "16px",
+                      "height": "16px",
+                      "backgroundColor": "#E0E0E0",
+                      "borderRadius": "2px"
+                    },
+                    "layout": {},
+                    "children": []
+                  }
+                },
+                {
+                  "uiName": "关闭按钮",
+                  "description": "窗口关闭",
+                  "components": {
+                    "text": [],
+                    "style": {
+                      "width": "16px",
+                      "height": "16px",
+                      "backgroundColor": "#FF4B4B",
+                      "borderRadius": "2px"
+                    },
+                    "layout": {},
+                    "children": []
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "uiName": "左侧导航栏",
+      "description": "提供消息、会议、通讯录、工作等主要功能入口，当前选中会议。",
+      "components": {
+        "text": [],
+        "style": {
+          "backgroundColor": "#F5F6FA",
+          "width": "72px",
+          "height": "100vh",
+          "display": "flex",
+          "flexDirection": "column",
+          "alignItems": "center",
+          "paddingTop": "16px"
+        },
+        "layout": {
+          "position": "left",
+          "width": "72px"
+        },
+        "children": [
+          {
+            "uiName": "导航项-消息",
+            "description": "导航到消息模块",
+            "components": {
+              "text": ["消息"],
+              "style": {
+                "color": "#888888",
+                "marginBottom": "24px",
+                "icon": "message"
+              },
+              "layout": {},
+              "children": []
+            }
+          },
+          {
+            "uiName": "导航项-会议",
+            "description": "导航到会议模块，当前选中",
+            "components": {
+              "text": ["会议"],
+              "style": {
+                "color": "#2179FF",
+                "fontWeight": "bold",
+                "backgroundColor": "#EAF3FF",
+                "borderRadius": "8px",
+                "icon": "meeting",
+                "marginBottom": "24px"
+              },
+              "layout": {},
+              "children": []
+            }
+          },
+          {
+            "uiName": "导航项-通讯录",
+            "description": "导航到通讯录模块",
+            "components": {
+              "text": ["通讯录"],
+              "style": {
+                "color": "#888888",
+                "marginBottom": "24px",
+                "icon": "contacts"
+              },
+              "layout": {},
+              "children": []
+            }
+          },
+          {
+            "uiName": "导航项-工作",
+            "description": "导航到工作模块",
+            "components": {
+              "text": ["工作"],
+              "style": {
+                "color": "#888888",
+                "icon": "work"
+              },
+              "layout": {},
+              "children": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "uiName": "主内容区",
+      "description": "显示会议发起操作界面，包括会议类型选择、高级设置和开始按钮。",
+      "components": {
+        "text": [],
+        "style": {
+          "backgroundColor": "#FFFFFF",
+          "padding": "48px 64px",
+          "display": "flex",
+          "flexDirection": "column",
+          "alignItems": "flex-start",
+          "minHeight": "calc(100vh - 56px)"
+        },
+        "layout": {
+          "position": "center",
+          "flex": 1
+        },
+        "children": [
+          {
+            "uiName": "发起会议标题",
+            "description": "主操作区标题",
+            "components": {
+              "text": ["发起会议"],
+              "style": {
+                "fontSize": "24px",
+                "fontWeight": "bold",
+                "color": "#222222",
+                "marginBottom": "32px"
+              },
+              "layout": {},
+              "children": []
+            }
+          },
+          {
+            "uiName": "会议类型选择区",
+            "description": "选择会议类型，包括视频会议和语音会议",
+            "components": {
+              "text": [],
+              "style": {
+                "display": "flex",
+                "gap": "24px",
+                "marginBottom": "24px"
+              },
+              "layout": {},
+              "children": [
+                {
+                  "uiName": "会议类型按钮-视频会议",
+                  "description": "选择视频会议",
+                  "components": {
+                    "text": ["视频会议"],
+                    "style": {
+                      "backgroundColor": "#2179FF",
+                      "color": "#FFFFFF",
+                      "borderRadius": "4px",
+                      "padding": "12px 32px",
+                      "fontWeight": "bold",
+                      "border": "none",
+                      "cursor": "pointer"
+                    },
+                    "layout": {},
+                    "children": []
+                  }
+                },
+                {
+                  "uiName": "会议类型按钮-语音会议",
+                  "description": "选择语音会议",
+                  "components": {
+                    "text": ["语音会议"],
+                    "style": {
+                      "backgroundColor": "#F5F6FA",
+                      "color": "#222222",
+                      "borderRadius": "4px",
+                      "padding": "12px 32px",
+                      "fontWeight": "bold",
+                      "border": "none",
+                      "cursor": "pointer"
+                    },
+                    "layout": {},
+                    "children": []
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "uiName": "高级设置链接",
+            "description": "跳转到高级设置页面",
+            "components": {
+              "text": ["高级设置"],
+              "style": {
+                "color": "#2179FF",
+                "fontSize": "14px",
+                "textDecoration": "underline",
+                "cursor": "pointer",
+                "marginBottom": "40px"
+              },
+              "layout": {},
+              "children": []
+            }
+          },
+          {
+            "uiName": "立即开始按钮",
+            "description": "发起会议操作按钮",
+            "components": {
+              "text": ["立即开始"],
+              "style": {
+                "backgroundColor": "#2179FF",
+                "color": "#FFFFFF",
+                "borderRadius": "4px",
+                "padding": "14px 40px",
+                "fontWeight": "bold",
+                "fontSize": "16px",
+                "border": "none",
+                "cursor": "pointer"
+              },
+              "layout": {},
+              "children": []
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+# 忽略依赖和构建相关目录
+node_modules/
+__pycache__/
+
+# 忽略应用项目目录
+derive/
+
+# 忽略 UI-SPEC 的子项目（你当前目录中已经在根目录，无需加 /media/sda5/... 绝对路径）
+cursor-claude-4-demo/
+backend_results/
+cwk-workspace/
+results/
+spec_generate_test/
+test/
+code.zip
+
+
+build/
+code.zip
+dist/
+.env
+*.key
+node_modules/
+*.p12
+*.pem
+*.zip
+build/
+code.zip
+dist/
+.env
+*.key
+node_modules/
+*.p12
+*.pem
+*.zip

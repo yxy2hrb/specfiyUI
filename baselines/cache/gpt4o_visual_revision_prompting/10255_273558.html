@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>对账管理</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f5f5f5;
+    }
+
+    /* Top Navigation Bar */
+    .top-nav {
+      display: flex;
+      background-color: #001529;
+      padding: 0 20px;
+      height: 64px;
+      align-items: center;
+    }
+
+    .top-nav a {
+      color: #ffffff;
+      text-decoration: none;
+      margin-right: 30px;
+      font-size: 16px;
+    }
+
+    .top-nav a:hover {
+      color: #1890ff;
+    }
+
+    /* Main Content */
+    .main-content {
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Placeholder for charts */
+    .charts-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .chart {
+      background-color: #e6f7ff;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #91d5ff;
+    }
+
+    .chart img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    /* Pagination and Buttons */
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .pagination {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pagination span,
+    .pagination a {
+      font-size: 14px;
+      color: #333;
+      text-decoration: none;
+    }
+
+    .pagination a {
+      padding: 4px 8px;
+      border: 1px solid #ddd;
+      background-color: #fff;
+    }
+
+    .pagination a:hover {
+      background-color: #e6f7ff;
+      border-color: #1890ff;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .buttons button {
+      padding: 6px 16px;
+      font-size: 14px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .buttons .reset {
+      background-color: #fff;
+      border: 1px solid #d9d9d9;
+      color: #333;
+    }
+
+    .buttons .query {
+      background-color: #1890ff;
+      color: white;
+    }
+
+    .buttons .reset:hover {
+      background-color: #f5f5f5;
+    }
+
+    .buttons .query:hover {
+      background-color: #40a9ff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <a href="#">对账管理</a>
+    <a href="#">设置</a>
+    <a href="#">通知</a>
+    <a href="#">用户中心</a>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Charts -->
+    <div class="charts-container">
+      <div class="chart">
+        <img src="rick.jpg" alt="等待时长" style="max-width: 100%; max-height: 100%;">
+      </div>
+      <div class="chart">
+        <img src="rick.jpg" alt="拥堵" style="max-width: 100%; max-height: 100%;">
+      </div>
+      <div class="chart">
+        <img src="rick.jpg" alt="装到时长（平均单次）" style="max-width: 100%; max-height: 100%;">
+      </div>
+      <div class="chart">
+        <img src="rick.jpg" alt="装卸时长（平均单次）" style="max-width: 100%; max-height: 100%;">
+      </div>
+      <div class="chart">
+        <img src="rick.jpg" alt="装卸时长（平均单次）" style="max-width: 100%; max-height: 100%;">
+      </div>
+      <div class="chart">
+        <img src="rick.jpg" alt="装卸时长（平均单次）" style="max-width: 100%; max-height: 100%;">
+      </div>
+      <div class="chart">
+        <img src="rick.jpg" alt="装卸时长（平均单次）" style="max-width: 100%; max-height: 100%;">
+      </div>
+      <div class="chart">
+        <img src="rick.jpg" alt="装卸时长（平均单次）" style="max-width: 100%; max-height: 100%;">
+      </div>
+    </div>
+
+    <!-- Actions (Buttons + Pagination) -->
+    <div class="actions">
+      <div class="pagination">
+        <span>共500条</span>
+        <a href="#">&lt; 前一页</a>
+        <a href="#">后一页 &gt;</a>
+        <a href="#">跳转</a>
+      </div>
+
+      <div class="buttons">
+        <button class="reset">重置</button>
+        <button class="query">查询</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Port Efficiency Analysis System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        .chart-container {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        .chart-container h3 {
+            margin-top: 0;
+        }
+        .chart-container img {
+            width: 100%;
+            height: auto;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 14px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+        }
+        .header h1 {
+            font-size: 20px;
+            margin: 0;
+        }
+        .header nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+        }
+        .header nav ul li {
+            margin-right: 20px;
+        }
+        .header nav ul li a {
+            color: black;
+            text-decoration: none;
+        }
+        .header nav ul li a:hover {
+            text-decoration: underline;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-top: 1px solid #ddd;
+        }
+        .footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>海港效率分析系统</h1>
+            <nav>
+                <ul>
+                    <li><a href="#">历史效率分析</a></li>
+                    <li><a href="#">效率分析</a></li>
+                    <li><a href="#" class="active">对比分析</a></li>
+                </ul>
+            </nav>
+            <div class="dropdown">
+                <button class="dropbtn">天气</button>
+                <div class="dropdown-content">
+                    <a href="#">晴天 5℃ / 东南风3-4级</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">用户</button>
+                <div class="dropdown-content">
+                    <a href="#">登录</a>
+                    <a href="#">注册</a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="dropdown">
+                <button class="dropbtn">货船</button>
+                <div class="dropdown-content">
+                    <a href="#">A01</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">岸桥</button>
+                <div class="dropdown-content">
+                    <a href="#">K12949206</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">场桥</button>
+                <div class="dropdown-content">
+                    <a href="#">A01</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">IGV</button>
+                <div class="dropdown-content">
+                    <a href="#">K12949206</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">储站</button>
+                <div class="dropdown-content">
+                    <a href="#">A01</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">只显示TOP10</button>
+                <div class="dropdown-content">
+                    <a href="#">只显示LAST10</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">重置</button>
+                <div class="dropdown-content">
+                    <a href="#">对比分析</a>
+                </div>
+            </div>
+        </div>
+        <div class="chart-container">
+            <h3>等待时长平行分析</h3>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAABDklEQVQI12P4zW0TURHF/999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
