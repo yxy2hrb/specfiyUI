@@ -84,6 +84,8 @@ def api_init_ui_generation():
         return error_response("spec必须为对象（JSON dict）", 400)
 
     save_name = data.get("save_name", "intent_spec")
+    
+    
     if not isinstance(save_name, str) or not SAFE_NAME_RE.match(save_name):
         return error_response("save_name不合法：仅支持字母/数字/_/-/.，长度1~64", 400)
     # usage_scenario_prompt = (
@@ -228,8 +230,8 @@ def api_init_ui_generation():
 @app.route('/api/edit_spec', methods=['POST'])
 def api_edit_spec():
     data = request.get_json()
-    updated = svc.edit_spec(data.get('text'), data.get('spec'), data.get('save_name'))
-    return response(True, {"spec": updated})
+    spec,code = svc.edit_spec(data.get('text'), data.get('spec'), data.get('save_name'))
+    return response(True, {"spec": spec,"extracted_code":code})
 
 # @app.route('/api/combine_spec', methods=['POST'])
 # def api_combine_spec():

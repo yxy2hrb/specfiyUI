@@ -7,7 +7,7 @@ from app import BACKEND_RESULTS
 from utils.gpt_api import gpt_infer, gpt_infer_no_image
 from utils.prompt import *
 from utils.spec_prompt import *
-from spec_editor import edit_ui_spec_v2
+from spec_editor import edit_ui_spec_v3
 from code_gen.gen_code import gen_code_with_spec
 from code_gen.code_debug import iterative_debug
 
@@ -86,7 +86,8 @@ def text_to_spec(text):
     return parse_json_with_retries(result)
 
 def edit_spec(text, spec, output_name):
-    return edit_ui_spec_v2(text, spec, f"{output_name}-edit.json")
+    # return edit_ui_spec_v3(text, spec, f"{output_name}-edit.json")
+    return edit_ui_spec_v3(text, spec, f"{output_name}-edit.json")
 
 # def combine_specs(spec_list):
 #     prompt = merge_prompt.format(spec_list=",".join(spec_list))
@@ -105,11 +106,14 @@ def generate_code(spec, save_name):
 
     with open(CODE_PATH, "w", encoding="utf-8") as f:
         f.write(code)
+        
     screenshot_path = os.path.join(DEST_FOLDER, f"{save_name}_screenshot.png")
     success = iterative_debug(code_path=CODE_PATH, port=PORT, code_dir=CODE_DIR, script_path=SCRIPT_PATH, wait_selector=WAIT_SELECTOR, screenshot=screenshot_path)
     if success:
         with open(screenshot_path, "rb") as img:
             return code, base64.b64encode(img.read()).decode("utf-8")
+    
+       
         # attempt += 1
     return None, None
 

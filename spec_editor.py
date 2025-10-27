@@ -8,7 +8,13 @@ from utils.edit_prompt import *
 import re
 SPEC_RESULTS = "/media/sda5/cyn-workspace/UI-SPEC/backend_results/spec-results"
 os.makedirs(SPEC_RESULTS, exist_ok=True)
-
+DEST_FOLDER = "/media/sda5/cyn-workspace/UI-SPEC/backend_results/image-results/gen_code_result"
+CODE_PATH = "/media/sda5/cyn-workspace/UI-SPEC/my-app/src/App.js"
+CODE_DIR = "/media/sda5/cyn-workspace/UI-SPEC/my-app"
+SCRIPT_PATH = "/media/sda5/cyn-workspace/UI-SPEC/my-app/src/transform-recharts-animation.js"
+PORT = 41000
+WAIT_SELECTOR = "#root"
+from code_gen.code_debug import iterative_debug
 def get_ui_spec_tree(spec: str, name: str):
     """
     尝试调用大模型 (gpt_infer_no_image) 三次，将 Python JSONDecodeError 信息当作 prompt 附加到模板里，
@@ -174,6 +180,102 @@ def edit_ui_spec_v2(user_request: str, ui_spec: str, save_name: str = "ui_spec_t
 
     print("✅ UI Spec 已更新，应用了以下 patch:", patch_ops)
     return ui_spec
+
+
+
+def _strip_code_fences(text: str) -> str:
+    import re
+    return re.sub(r"^\s*```[\w-]*\s*|\s*```\s*$", "", text, flags=re.MULTILINE).strip()
+
+def _react_edit_prompt( user_request: str, old_code: str) -> str:
+    """
+    生成修改提示：给 LLM 原代码、修改请求，要求它返回修改后的 App.js。
+    """
+    return (
+        "你是一个 React 前端开发助手。"
+        "现在有一个 React 项目的主文件 App.js，请根据以下信息修改代码：\n\n"
+        "【输入要求】\n"
+        "1. 仅输出修改后的完整 App.js 代码，不要解释或代码块围栏。\n"
+        "2. 保留原有逻辑和结构，仅在需要的地方修改或插入。\n"
+        "3. 修改应符合以下 UI Spec 要求与用户请求。\n"
+        "4. 确保语法合法且能直接运行。\n\n"
+        f"【用户请求】\n{user_request}\n\n"
+        f"【原始 App.js】\n{old_code}\n\n"
+        "请输出修改后的完整 App.js："
+    )
+
+def edit_ui_spec_v3(user_request: str, ui_spec: str, save_name: str = "ui_spec_tree.json"):
+    CODE_PATH = "/media/sda5/cyn-workspace/UI-SPEC/my-app/src/App.js"
+    
+    """
+    根据用户的编辑需求调用 LLM，生成 JSON Patch 并应用到 ui_spec_tree.json。
+    增加错误修复处理，确保生成合法的 JSON Patch。
+    """
+    # 构造提示
+    system_prompt = (
+        "你是一个帮助用户编辑 UI Spec Tree 的助手。\n\n"
+        "输入：用户的编辑需求，例如 “帮我加到 sidebar 的纵向间距 24px”。\n"
+        "输出：符合 JSON Patch 标准的数组，包含要对原始 spec 进行的操作。\n\n"
+        "示例：\n"
+        "用户：\"帮我加到 sidebar 的纵向间距 24px\"\n"
+        "助手输出：\n"
+        "[\n"
+        "  {\"op\": \"add\", \"path\": \"components/sidebar/spacing/vertical\", \"value\": \"24px\"}\n"
+        "]\n\n"
+        "不要输出除 JSON Patch 以外的内容。\n"
+        "要注意不要直接添加spec中不存在的路径，如果存在多个key分开完成操作"
+    )
+
+    last_error = None
+    for attempt in range(1, 5):
+        # 合成消息
+        prompt = f"{system_prompt}\nUI SPEC Tree:{ui_spec}\n用户：{user_request}"
+        if last_error:
+            prompt += f"\n---\n注意：上次输出的 JSON Patch 在解析时报错：\n{last_error}"
+
+        # 调用 LLM 生成 Patch
+        patch_text = gpt_infer_no_image(prompt).strip()
+
+        # 尝试解析 JSON Patch
+        try:
+            patch_ops = json.loads(patch_text)
+            if not isinstance(ui_spec, dict):
+                ui_spec = json.loads(ui_spec)  # 确保 ui_spec 是字典类型
+            ui_spec = jsonpatch.apply_patch(ui_spec, patch_ops)
+            break
+        except Exception as e:
+            last_error = f"JSON解析失败：{e}\nLLM输出：{patch_text}"
+            print(f"❌ 第 {attempt} 次尝试解析失败，错误信息：{last_error}")
+            continue
+    else:
+        raise RuntimeError(f"多次尝试生成合法 JSON Patch 失败。\n最后的错误信息：{last_error}")
+    
+
+    # 保存更新后的 Spec
+    with open(os.path.join(SPEC_RESULTS, save_name), "w", encoding="utf-8") as f:
+        json.dump(ui_spec, f, ensure_ascii=False, indent=4)
+
+    with open(CODE_PATH, "r", encoding="utf-8") as f:
+        old_code = f.read()
+
+    prompt = _react_edit_prompt(
+        user_request,
+        old_code,
+    )
+    try:
+        new_code = gpt_infer_no_image(prompt).strip()
+        new_code = _strip_code_fences(new_code)
+        with open(CODE_PATH, "w", encoding="utf-8") as f:
+            f.write(new_code)
+    except Exception as e:
+        raise RuntimeError(f"修改 App.js 失败: {e}")
+
+    screenshot_path = os.path.join(DEST_FOLDER, f"{save_name}_screenshot.png")
+    success = iterative_debug(code_path=CODE_PATH, port=PORT, code_dir=CODE_DIR, script_path=SCRIPT_PATH, wait_selector=WAIT_SELECTOR, screenshot=screenshot_path)
+    if success==False:
+        new_code="error generate"
+    return ui_spec,new_code
+
 
 # 示例用法
 if __name__ == "__main__":
